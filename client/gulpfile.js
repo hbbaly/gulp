@@ -3,6 +3,7 @@ var uglify  = require('gulp-uglify')
 var gutil = require('gulp-util')
 var watchPath = require('gulp-watch-path')
 var combiner = require('stream-combiner2')
+var sourcemaps = require('gulp-sourcemaps')
 var handleError = function (err) {
   var colors = gutil.colors;
   console.log('\n')
@@ -12,6 +13,7 @@ var handleError = function (err) {
   gutil.log('message: ' + err.message)
   gutil.log('plugin: ' + colors.yellow(err.plugin))
 }
+// 处理js
 gulp.task('watchjs',function(){
   gulp.watch('public/js/*.js',function(event){
     var paths = watchPath(event,'public/','../server/')
@@ -27,10 +29,16 @@ gulp.task('watchjs',function(){
 
     var combined = combiner.obj([
       gulp.src(paths.srcPath),
+      sourcemaps.init(),
       uglify(),
+      sourcemaps.write(),
       gulp.dest(paths.distDir)
     ])
     combined.on('error',handleError)
   })
+})
+var minifycss = require('gulp-minify-css')
+gulp.task('watchcss',function(){
+
 })
 gulp.task('default',['watchjs'])
