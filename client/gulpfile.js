@@ -39,6 +39,17 @@ gulp.task('watchjs',function(){
 })
 var minifycss = require('gulp-minify-css')
 gulp.task('watchcss',function(){
+  gulp.watch('public/css/*.css',function(event){
+    var paths = watchPath(event,'public/','../server/')
 
+    gutil.log(gutil.colors.green(event.type) + ' ' + paths.srcPath)
+    gutil.log('Dist ' + paths.distPath)
+
+    gulp.src(paths.srcPath)
+    .pipe(sourcemaps.init())
+    .pipe(minifycss())
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest(paths.distDir))
+  })
 })
-gulp.task('default',['watchjs'])
+gulp.task('default',['watchjs','watchcss'])
