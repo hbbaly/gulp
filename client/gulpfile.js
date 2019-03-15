@@ -38,6 +38,7 @@ gulp.task('watchjs',function(){
   })
 })
 var minifycss = require('gulp-minify-css')
+var autoprefixer = require('gulp-autoprefixer')
 gulp.task('watchcss',function(){
   gulp.watch('public/css/*.css',function(event){
     var paths = watchPath(event,'public/','../server/')
@@ -47,6 +48,9 @@ gulp.task('watchcss',function(){
 
     gulp.src(paths.srcPath)
     .pipe(sourcemaps.init())
+    .pipe(autoprefixer({
+      browsers: 'last 3 versions'
+    }))
     .pipe(minifycss())
     .pipe(sourcemaps.write())
     .pipe(gulp.dest(paths.distDir))
