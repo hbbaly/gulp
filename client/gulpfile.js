@@ -56,4 +56,26 @@ gulp.task('watchcss',function(){
     .pipe(gulp.dest(paths.distDir))
   })
 })
-gulp.task('default',['watchjs','watchcss'])
+// less 
+var less = require('gulp-less')
+gulp.task('watchless', function () {
+  gulp.watch('public/less/**/*.less', function (event) {
+      var paths = watchPath(event, 'public/less/', '../server/css/')
+
+  gutil.log(gutil.colors.green(event.type) + ' ' + paths.srcPath)
+      gutil.log('Dist ' + paths.distPath)
+      var combined = combiner.obj([
+          gulp.src(paths.srcPath),
+          sourcemaps.init(),
+          autoprefixer({
+            browsers: 'last 2 versions'
+          }),
+          less(),
+          minifycss(),
+          sourcemaps.write('./'),
+          gulp.dest(paths.distDir)
+      ])
+      combined.on('error', handleError)
+  })
+})
+gulp.task('default',['watchjs','watchcss','watchless'])
