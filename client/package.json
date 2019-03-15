@@ -16,6 +16,7 @@
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-uglify": "^3.0.2",
-    "gulp-util": "^3.0.8"
+    "gulp-util": "^3.0.8",
+    "gulp-watch-path": "^0.1.0"
   }
 }
