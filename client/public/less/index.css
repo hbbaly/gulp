@@ -10,3 +10,6 @@
 .wrapper ._footer {
   color: red;
 }
+.wrapper .content {
+  height: 200px;
+}

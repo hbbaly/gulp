@@ -1,0 +1,1 @@
+{"version":3,"sources":["index.less"],"names":[],"mappings":"AAAA,SACE,WAAA,KADF,eAGI,OAAA,MAHJ,kBAMI,MAAA,MANJ,kBASI,MAAA,IATJ,kBAYI,OAAA","file":"index.css","sourcesContent":[".wrapper{\n  background: #f60;\n  .-top{\n    height: 100px;\n  }\n  .-middle{\n    width: 100px;\n  }\n  ._footer{\n    color: red;\n  }\n  .content{\n    height: 200px;\n  }\n}"]}
