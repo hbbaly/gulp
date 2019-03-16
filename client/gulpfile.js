@@ -5,6 +5,7 @@ var watchPath = require('gulp-watch-path')
 var combiner = require('stream-combiner2')
 var sourcemaps = require('gulp-sourcemaps')
 var babel = require('gulp-babel');
+var concat = require('gulp-concat');
 var handleError = function (err) {
   var colors = gutil.colors;
   console.log('\n')
@@ -17,7 +18,7 @@ var handleError = function (err) {
 // 处理js
 gulp.task('watchjs',function(){
   gulp.watch('public/js/*.js',function(event){
-    var paths = watchPath(event,'public/','../server/')
+    // var paths = watchPath(event,'public/','../server/')
   //  console.log(paths);
   //  { srcFilename: 'index.js',
   // distFilename: 'index.js',
@@ -25,19 +26,30 @@ gulp.task('watchjs',function(){
   // srcDir: 'public/js',
   // distPath: '../server/js/index.js',
   // distDir: '../server/js' }
-    gutil.log(gutil.colors.green(event.type) + ' ' + paths.srcPath)
-    gutil.log('Dist ' + paths.distPath)
-
+    // gutil.log(gutil.colors.green(event.type) + ' ' + paths.srcPath)
+    // gutil.log('Dist ' + paths.distPath)
     var combined = combiner.obj([
-      gulp.src(paths.srcPath),
-      sourcemaps.init(),
-      babel({
-        presets: ['es2015']
-      }),
-      uglify(),
-      sourcemaps.write(),
-      gulp.dest(paths.distDir)
-    ])
+      gulp.src('public/js/*.js'),
+        sourcemaps.init(),
+        babel({
+          presets:['es2015']
+        }),
+        uglify(),
+        concat('all.js'),
+        sourcemaps.write(),
+        gulp.dest('../server/js')
+      ])
+    // var combined = combiner.obj([
+    //   gulp.src(paths.srcPath),
+    //   sourcemaps.init(),
+    //   babel({
+    //     presets: ['es2015']
+    //   }),
+    //   uglify(),
+    //   sourcemaps.write(),
+    //   concat('all.js'),
+    //   gulp.dest(paths.distDir)
+    // ])
     combined.on('error',handleError)
   })
 })
