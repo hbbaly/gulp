@@ -4,6 +4,7 @@ var gutil = require('gulp-util')
 var watchPath = require('gulp-watch-path')
 var combiner = require('stream-combiner2')
 var sourcemaps = require('gulp-sourcemaps')
+var babel = require('gulp-babel');
 var handleError = function (err) {
   var colors = gutil.colors;
   console.log('\n')
@@ -30,6 +31,9 @@ gulp.task('watchjs',function(){
     var combined = combiner.obj([
       gulp.src(paths.srcPath),
       sourcemaps.init(),
+      babel({
+        presets: ['es2015']
+      }),
       uglify(),
       sourcemaps.write(),
       gulp.dest(paths.distDir)
