@@ -72,16 +72,7 @@ gulp.task('watchcss',function(){
     .pipe(gulp.dest(paths.distDir))
   })
 })
-// gulp.task('minifycss', function () {
-//   gulp.src('public/css/**/*.css')
-//       .pipe(sourcemaps.init())
-//       .pipe(autoprefixer({
-//         browsers: 'last 2 versions'
-//       }))
-//       .pipe(minifycss())
-//       .pipe(sourcemaps.write('./'))
-//       .pipe(gulp.dest('../server/css/'))
-// })
+
 // less 
 var less = require('gulp-less')
 gulp.task('watchless', function () {
@@ -104,20 +95,7 @@ gulp.task('watchless', function () {
       combined.on('error', handleError)
   })
 })
-// gulp.task('lesscss', function () {
-//   var combined = combiner.obj([
-//           gulp.src('public/less/**/*.less'),
-//           sourcemaps.init(),
-//           autoprefixer({
-//             browsers: 'last 2 versions'
-//           }),
-//           less(),
-//           minifycss(),
-//           sourcemaps.write(),
-//           gulp.dest('../server/css/')
-//       ])
-//   combined.on('error', handleError)
-// })
+
 //图片处理
 var imagemin = require('gulp-imagemin')
 gulp.task('watchimage',function(){
@@ -134,11 +112,5 @@ gulp.task('watchimage',function(){
         .pipe(gulp.dest(paths.distDir))
   })
 })
-// gulp.task('image', function () {
-//   gulp.src('public/images/**/*')
-//       .pipe(imagemin({
-//           progressive: true
-//       }))
-//       .pipe(gulp.dest('../server/images'))
-// })
+
 gulp.task('default',['watchjs','watchcss','watchless','watchimage'])
